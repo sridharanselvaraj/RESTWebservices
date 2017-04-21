@@ -9,6 +9,8 @@ import org.sri.java.messenger.model.Message;
 
 public class MessageService {
 	
+	//Test
+	
 	private Map<Long,Message> messages = DatabaseClass.getMessages();
 
 	public List<Message> getAllMessage()
