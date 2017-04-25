@@ -2,6 +2,7 @@ package org.sri.java.messenger.resources;
 
 import java.util.List;
 
+import javax.ws.rs.BeanParam;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -10,7 +11,6 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
 import org.sri.java.messenger.model.Message;
@@ -24,17 +24,15 @@ public class MessageResource {
 	MessageService messageService=new MessageService();
 	
 	@GET
-	public List<Message> getMessage(@QueryParam("year") int year,
-									@QueryParam("start") int start,
-									@QueryParam("size") int size)
+	public List<Message> getMessage(@BeanParam MessageFilterBean filterBean)
 	{
-		if(year > 0)
+		if(filterBean.getYear() > 0)
 		{
-			return messageService.getAllMessageForYear(year);
+			return messageService.getAllMessageForYear(filterBean.getYear());
 		}
-		if(start >=0 && size >0)
+		if(filterBean.getStart() >=0 && filterBean.getSize() >0)
 		{
-			return messageService.getAllMessagePaginated(start, size);
+			return messageService.getAllMessagePaginated(filterBean.getStart(), filterBean.getSize());
 		}
 		return messageService.getAllMessage();
 	}
