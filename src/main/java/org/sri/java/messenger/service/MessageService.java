@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.sri.java.messenger.database.DatabaseClass;
+import org.sri.java.messenger.exception.DataNotFoundException;
 import org.sri.java.messenger.model.Message;
 
 public class MessageService {
@@ -50,7 +51,13 @@ public class MessageService {
 	
 	public Message getMessage(long id)
 	{
-		return messages.get(id);
+		Message message=messages.get(id);
+		if(message == null)
+		{
+			throw new DataNotFoundException("message with id :"+ id+ " Not Found");
+			
+		}
+		return message;
 	}
 	
 	public Message addMessage(Message message)
